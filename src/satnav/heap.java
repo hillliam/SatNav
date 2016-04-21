@@ -52,18 +52,18 @@ public class heap {
         if (left >= length) {
 
         } else if (right >= length) {
-            if (array[parent].getdistance() < array[left].getdistance()) {
+            if (array[parent].getHdistance() < array[left].getHdistance()) {
                 Node tmp = array[left];
                 array[left] = array[parent];
                 array[parent] = tmp;
             }
         } else {
-            if (array[left].getdistance() < array[right].getdistance()) {
+            if (array[left].getHdistance() < array[right].getHdistance()) {
                 newnode = left;
             } else {
                 newnode = right;
             }
-            if (array[parent].getdistance() > array[newnode].getdistance()) {
+            if (array[parent].getHdistance() > array[newnode].getHdistance()) {
                 Node tmp = array[newnode];
                 array[newnode] = array[parent];
                 array[parent] = tmp;
@@ -75,7 +75,7 @@ public class heap {
     public void heapup(int newnode) {
         int parent = parent(newnode);
         while (parent >= 0) {
-            if (array[parent].getdistance() > array[newnode].getdistance()) {
+            if (array[parent].getHdistance() > array[newnode].getHdistance()) {
                 Node tmp = array[newnode];
                 array[newnode] = array[parent];
                 array[parent] = tmp;

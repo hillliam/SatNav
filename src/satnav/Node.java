@@ -9,6 +9,8 @@ public class Node {
     private int x;
     private int y;
     private double distance = Double.MAX_VALUE;
+    private double time = Double.MAX_VALUE;
+    private double speed = Double.MAX_VALUE;
     private double hdistance = Double.MAX_VALUE;
     private Node best;
     private String path;
@@ -106,5 +108,33 @@ public class Node {
      */
     public void setPath_vertex(String path_vertex) {
         this.path_vertex = path_vertex;
+    }
+
+    /**
+     * @return the time
+     */
+    public double getTime() {
+        return time;
+    }
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(double time) {
+        this.time = time;
+    }
+
+    /**
+     * @return the speed
+     */
+    public double getSpeed() {
+        return speed;
+    }
+
+    /**
+     * @param speed the speed to set
+     */
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }

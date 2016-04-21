@@ -8,6 +8,7 @@ public class routedata implements RouteInfoInterface {
 
     private double totaldistance = 0;
     private double totaltime = 0;
+    private double totalspeed = 0;
     //private MyStack from = new MyStack(); // stack overflow on large maps
     private MyVector from = new MyVector();
     private int exploredvertex = 0;
@@ -21,6 +22,14 @@ public class routedata implements RouteInfoInterface {
 
     public void adddistance(double distance) {
         totaldistance += distance;
+    }
+
+        public double Getspeed() {
+        return totalspeed;
+    }
+    
+    public void addspeed(double speed) {
+        totalspeed += speed;
     }
 
     @Override

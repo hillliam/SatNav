@@ -61,6 +61,8 @@ public class graph {
         Node current = startn;
         current.setHdistance(0);
         current.setdistance(0);
+        current.setSpeed(0);
+        current.setTime(0);
         current.setvisited();
         //open.AddItem(startn);
         open.Push(startn);
@@ -123,16 +125,24 @@ public class graph {
             open.Push(c);
             //open.AddItem(c);
         }
-        double tentive;
+        double tentivedistance;
+        double tentivetime;
+        double tentivespeed;
+        tentivedistance = current.getdistance() + edges.get(i).getDistance();
+        tentivetime = current.getTime() + edges.get(i).getTime();
+        tentivespeed = current.getSpeed() + edges.get(i).getSpeed();
         if (mode == 1) {
-            tentive = current.getdistance() + edges.get(i).getDistance();
+            if (tentivedistance >= c.getdistance()) {
+                return;
+            }
         } else if (mode == 2) {
-            tentive = current.getdistance() + edges.get(i).getTime();
+            if (tentivetime >= c.getdistance()) {
+                return;
+            }
         } else {
-            tentive = current.getdistance() + edges.get(i).getSpeed();
-        }
-        if (tentive >= c.getdistance()) {
-            return;
+            if (tentivespeed >= c.getdistance()) {
+                return;
+            }
         }
         c.setBest(current);
         c.setPath(edges.get(i).getLabel());
@@ -140,8 +150,16 @@ public class graph {
         //path.addvertex(c.getid());
         //path.addtopath(edges.get(i).getLabel() + " -> ");
         //path.addtopathname(edges.get(i).getLabel() + "(" + edges.get(i).getId1() + ", " + edges.get(i).getId2() + ") -> ");
-        c.setdistance(tentive);
-        c.setHdistance(current.getdistance() + c.huristic(endn));
+        c.setdistance(tentivedistance);
+        c.setTime(tentivetime);
+        c.setSpeed(tentivespeed);
+        if (mode == 1) {
+            c.setHdistance(current.getdistance() + c.huristic(endn));
+        } else if (mode == 2) {
+            c.setHdistance(current.getTime() + c.huristic(endn));
+        } else {
+            c.setHdistance(current.getSpeed() + c.huristic(endn));
+        }
         //System.out.println(c.getdistance());
         //System.out.println(c.getHdistance());
     }
@@ -151,11 +169,12 @@ public class graph {
         while (a != startn) {
             path.addvertex(a.getid());
             path.adddistance(a.getdistance());
-            path.addtime(a.getdistance());
+            path.addtime(a.getTime());
+            path.addspeed(a.getSpeed());
             //if (path.GetRoute(false).contains(a.getPath())) {
-                path.addtopath(a.getPath());
+            path.addtopath(a.getPath());
             //}
-                path.addtopathname(a.getPath_vertex());
+            path.addtopathname(a.getPath_vertex());
             a = a.getBest();
         }
     }
