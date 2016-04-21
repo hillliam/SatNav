@@ -73,7 +73,7 @@ public class edgevector {
     }
     public void remove(int index)
     {
-        for (int i = index; i!= itemcount-1; i++)
+        for (int i = index; i >= itemcount-1; i++)
         {
             edges[i] = edges[i+1];
         }

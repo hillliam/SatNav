@@ -5,12 +5,12 @@ package satnav;
  * data structure
  */
 // Refer to week 5 materials
-public class MyStack {
+public class intStack {
 
-    private DLLNode start;
+    private intNode start;
     // Default Constructor
 
-    public MyStack() {
+    public intStack() {
         start = null;
     }
 
@@ -23,7 +23,7 @@ public class MyStack {
         }
     }
 
-    public boolean find(String item) {
+    public boolean find(int item) {
         if (start == null) {
             return false;
         } else {
@@ -38,19 +38,19 @@ public class MyStack {
 
     // Gets the next item from the stack
     // or null if there are no more items
-    public String Pop() {
+    public int Pop() {
         if (start == null) {
-            return null;
+            return -1;
         } else {
-            DLLNode item = start;
+            intNode item = start;
             start = start.getNextindex();
             return item.getItem();
         }
     }
 
     // Adds value to the stack
-    public void Push(String value) {
-        DLLNode item = new DLLNode(value);
+    public void Push(int value) {
+        intNode item = new intNode(value);
         if (start == null) {
             start = item;
         } else {

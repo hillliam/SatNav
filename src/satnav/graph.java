@@ -66,7 +66,7 @@ public class graph {
         current.setvisited();
         //open.AddItem(startn);
         open.Push(startn);
-        path.addvertex(startn.getid());
+        //path.addvertex(startn.getid());
         while (open.GetNoOfItems() != 0) {          //(open.GetNoOfItems() != 0) {
             //System.out.println("starting at " + current.getid());
             //current = lowestcost(open, mode, path);
@@ -81,7 +81,7 @@ public class graph {
             //int b = 0;
             check(path, current, endn, mode);
         }
-        addup(path, current, startn);
+        addup(path, current, startn, endn);
     }
 
     private void removeservice() {
@@ -99,25 +99,25 @@ public class graph {
                 if (current.getid() == edges.get(i).getId1()) {
                     Node c = findnode(edges.get(i).getId2());
                     //System.out.println("found path along " + edges.get(i).getLabel());
-                    nodebit(i, c, path, current, endn, mode);
+                    nodebit(i, c, current, endn, mode);
                 } else if (current.getid() == edges.get(i).getId2()) {
                     Node c = findnode(edges.get(i).getId1());
                     //System.out.println("found path along " + edges.get(i).getLabel());
-                    nodebit(i, c, path, current, endn, mode);
+                    nodebit(i, c, current, endn, mode);
                 }
             } else {
                 if (!nooneway) {
                     if (current.getid() == edges.get(i).getId1()) {
                         Node c = findnode(edges.get(i).getId2());
                         //System.out.println("found path along " + edges.get(i).getLabel());
-                        nodebit(i, c, path, current, endn, mode);
+                        nodebit(i, c, current, endn, mode);
                     }
                 }
             }
         }
     }
 
-    private void nodebit(int i, Node c, routedata path, Node current, Node endn, int mode) {
+    private void nodebit(int i, Node c, Node current, Node endn, int mode) {
         if (close.FindItem(c) > 0) {
             return;
         }
@@ -164,7 +164,7 @@ public class graph {
         //System.out.println(c.getHdistance());
     }
 
-    public void addup(routedata path, Node current, Node startn) {
+    public void addup(routedata path, Node current, Node startn, Node endn) {
         Node a = current;
         while (a != startn) {
             path.addvertex(a.getid());
@@ -177,6 +177,7 @@ public class graph {
             path.addtopathname(a.getPath_vertex());
             a = a.getBest();
         }
+        path.addvertex(startn.getid());
     }
 
     public Node lowestcost(nodeVector list, int mode, routedata path) {

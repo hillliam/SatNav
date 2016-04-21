@@ -1,18 +1,18 @@
 package satnav;
 
-public class DLLNode {
+public class intNode {
 
-    private String item;
-    private DLLNode nextindex;// null = end
+    private int item;
+    private intNode nextindex;// null = end
     //private DLLNode backindex;
 
-    public DLLNode(String value) {
+    public intNode(int value) {
         item = value;
         nextindex = null;
         //backindex = null;
     }
 
-    public DLLNode(String value, DLLNode next) {
+    public intNode(int value, intNode next) {
         item = value;
         nextindex = next;
         //backindex = null;
@@ -27,7 +27,7 @@ public class DLLNode {
     /**
      * @return the item
      */
-    public String getItem() {
+    public int getItem() {
         return item;
     }
 
@@ -38,8 +38,8 @@ public class DLLNode {
             return (1 + getNextindex().itemcount());
         }
     }
-        public boolean find(String index) {
-        if (item.equals(index)) {
+        public boolean find(int index) {
+        if (item == index) {
             return true;
         } else if (this.getNextindex() == null) {
             return false; // end of the line
@@ -48,17 +48,17 @@ public class DLLNode {
         }
     }
 
-    public String find(int count, int index) {
+    public int find(int count, int index) {
         if (index == count) {
             return this.getItem();
         } else if (this.getNextindex() == null) {
-            return null; // end of the line
+            return -1; // end of the line
         } else {
             return getNextindex().find(count + 1, index);
         }
     }
 
-    public DLLNode finditem(int count, int index) {
+    public intNode finditem(int count, int index) {
         if (index == count) {
             return this;
         } else if (this.getNextindex() == null) {
@@ -68,7 +68,7 @@ public class DLLNode {
         }
     }
 
-    public void additem(DLLNode item) {
+    public void additem(intNode item) {
         if (this.getNextindex() == null) {
             this.setNextindex(item);
         } else {
@@ -76,7 +76,7 @@ public class DLLNode {
         }
     }
 
-    public void insertitem(int count, int findindex, DLLNode item) {
+    public void insertitem(int count, int findindex, intNode item) {
         if (this.getNextindex() == null || count == findindex - 1) {
             item.setNextindex(this.getNextindex());
             this.setNextindex(item);
@@ -88,7 +88,7 @@ public class DLLNode {
     public void delete(int count, int findindex) {
         if (count == findindex - 1) {
             if (this.getNextindex() != null) {
-                DLLNode removed = this.getNextindex();
+                intNode removed = this.getNextindex();
                 if (removed.getNextindex() != null) {
                     this.setNextindex(removed.getNextindex());
                 } else {
@@ -107,27 +107,27 @@ public class DLLNode {
     /**
      * @param item the item to set
      */
-    public void setItem(String item) {
+    public void setItem(int item) {
         this.item = item;
     }
 
     /**
      * @return the nextindex
      */
-    public DLLNode getNextindex() {
+    public intNode getNextindex() {
         return nextindex;
     }
 
     /**
      * @param nextindex the nextindex to set
      */
-    public void setNextindex(DLLNode nextindex) {
+    public void setNextindex(intNode nextindex) {
         this.nextindex = nextindex;
     }
     public String toString() {
         if (this.getNextindex() == null)
         {
-            return item;
+            return item+"";
         }
         else
         {
