@@ -11,6 +11,8 @@ package satnav;
  */
 public class display extends javax.swing.JDialog {
 
+    private SatNavEngine map = new SatNavEngine();
+    
     /**
      * Creates new form display
      */
@@ -42,6 +44,11 @@ public class display extends javax.swing.JDialog {
         oneways = new javax.swing.JCheckBox();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        maps = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        detail = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,21 +69,32 @@ public class display extends javax.swing.JDialog {
 
         jLabel2.setText("end street:");
 
-        start1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        start2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        end1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        end2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        start2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                start2ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("calcuate route");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         oneways.setText("avoid one way's");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "shortest distance", "quickest distance", "fastest roads" }));
 
         jLabel3.setText("mode:");
+
+        jLabel4.setText("map");
+
+        maps.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "city center", "sheffield", "leads sheffield and manchester" }));
+
+        jLabel5.setText("distance:");
+
+        detail.setText("print vertexs");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,17 +110,16 @@ public class display extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton1)
-                                            .addComponent(aroads))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2))
+                                    .addComponent(aroads)
                                     .addComponent(oneways))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(maps, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -113,9 +130,22 @@ public class display extends javax.swing.JDialog {
                                     .addComponent(end1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(start2, 0, 140, Short.MAX_VALUE)
-                                    .addComponent(end2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18))))
+                                    .addComponent(start2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(end2, 0, 140, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addGap(32, 32, 32)
+                                .addComponent(detail))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,12 +168,20 @@ public class display extends javax.swing.JDialog {
                         .addComponent(jLabel3))
                     .addComponent(aroads))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(oneways)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(oneways)
+                    .addComponent(jLabel4)
+                    .addComponent(maps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(detail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -152,9 +190,52 @@ public class display extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here: load map
+        int a = this.maps.getSelectedIndex();
+        if (a == 0)
+        {
+            SatNav.LoadVertices(map, "SheffieldCentre - ADS2SatNavData-Vertices.dat");
+        SatNav.LoadEdges(map, "SheffieldCentre - ADS2SatNavData-Edges.dat");
+        }
+        else if (a == 1)
+        {
+            SatNav.LoadVertices(map, "Sheffield - ADS2SatNavData-Vertices.dat");
+        SatNav.LoadEdges(map, "Sheffield - ADS2SatNavData-Edges.dat");
+        }
+        else if (a == 2)
+        {
+            SatNav.LoadVertices(map, "LeedsSheffieldManchester - ADS2SatNavData-Vertices.dat");
+        SatNav.LoadEdges(map, "LeedsSheffieldManchester - ADS2SatNavData-Edges.dat");
+        }
+        // populate start1 start2 end1 end2
+        edgevector data = map.getlables();
+        for (int i=0; i!= data.getitems(); i++)
+        {
+            this.end1.addItem(data.get(i).getLabel());
+            this.end2.addItem(data.get(i).getLabel());
+            this.start1.addItem(data.get(i).getLabel());
+            this.start2.addItem(data.get(i).getLabel());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here: calculate route
+        RouteInfoInterface a = new routedata();
+        String[] array = new String[2];
+        String[] array2 = new String[2];
+        boolean moterway = 
+        //engine.printnodes();
+        array[0] = (String)start1.getSelectedItem();
+        array[1] = (String)start2.getSelectedItem();
+        array2[0] = (String)end1.getSelectedItem();
+        array2[1] = (String)end2.getSelectedItem();
+        a = map.GetRoute(array, array2, 1);
+        this.jTextArea1.setText(a.GetRoute());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void start2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_start2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_start2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,6 +281,7 @@ public class display extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aroads;
+    private javax.swing.JCheckBox detail;
     private javax.swing.JComboBox end1;
     private javax.swing.JComboBox end2;
     private javax.swing.JButton jButton1;
@@ -208,8 +290,12 @@ public class display extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox maps;
     private javax.swing.JCheckBox oneways;
     private javax.swing.JComboBox start1;
     private javax.swing.JComboBox start2;

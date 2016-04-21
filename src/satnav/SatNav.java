@@ -61,7 +61,7 @@ public class SatNav {
         System.out.println(a.GetRoute(false));
     }
 
-    private static void LoadVertices(SatNavEngineInterface engine, String filename) {
+    public static void LoadVertices(SatNavEngineInterface engine, String filename) {
         byte[] data = new byte[12];
 
         try {
@@ -78,7 +78,7 @@ public class SatNav {
         }
     }
 
-    private static void LoadEdges(SatNavEngineInterface engine, String filename) {
+    public static void LoadEdges(SatNavEngineInterface engine, String filename) {
         int len;
         byte[] data = new byte[256];
         try {

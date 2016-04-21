@@ -11,12 +11,16 @@ public class graph {
     private edgevector edges = new edgevector(); // if there where multi key hash maps
     private heap open = new heap();
     private nodeVector close = new nodeVector(); // better if hashmap
-    private double clamp = 0;
+    private nodeVector from = new nodeVector();
     public boolean nooneway = false;
     public boolean amoterway = false;
 
     public graph() {
 
+    }
+
+    public edgevector getedges() {
+        return edges;
     }
 
     void AddNode(int name, int x, int y) {
@@ -52,8 +56,6 @@ public class graph {
         }
         Node startn = findnodebyedge(start);
         Node endn = findnodebyedge(end);
-        //clamp = startn.huristic(endn);
-        //System.out.println(clamp);
         //System.out.println("start node " + startn.getid());
         //System.out.println("end node " + endn.getid());
         Node current = startn;
@@ -77,7 +79,7 @@ public class graph {
             //int b = 0;
             check(path, current, endn, mode);
         }
-        addup(path, current);
+        addup(path, current, startn);
     }
 
     private void removeservice() {
@@ -132,17 +134,30 @@ public class graph {
         if (tentive >= c.getdistance()) {
             return;
         }
-        path.addvertex(c.getid());
-        path.addtopath(edges.get(i).getLabel() + " -> ");
-        path.addtopathname(edges.get(i).getLabel() + "(" + edges.get(i).getId1() + ", " + edges.get(i).getId2() + ") -> ");
+        c.setBest(current);
+        c.setPath(edges.get(i).getLabel());
+        c.setPath_vertex(edges.get(i).getLabel() + "(" + edges.get(i).getId1() + ", " + edges.get(i).getId2() + ")");
+        //path.addvertex(c.getid());
+        //path.addtopath(edges.get(i).getLabel() + " -> ");
+        //path.addtopathname(edges.get(i).getLabel() + "(" + edges.get(i).getId1() + ", " + edges.get(i).getId2() + ") -> ");
         c.setdistance(tentive);
         c.setHdistance(current.getdistance() + c.huristic(endn));
         //System.out.println(c.getdistance());
         //System.out.println(c.getHdistance());
     }
 
-    public void addup(routedata path, Node current) {
-        path.addvertex(current.getid());
+    public void addup(routedata path, Node current, Node startn) {
+        Node a = current;
+        while (a != startn) {
+            path.addvertex(a.getid());
+            path.adddistance(a.getdistance());
+            path.addtime(a.getdistance());
+            //if (path.GetRoute(false).contains(a.getPath())) {
+                path.addtopath(a.getPath());
+            //}
+                path.addtopathname(a.getPath_vertex());
+            a = a.getBest();
+        }
     }
 
     public Node lowestcost(nodeVector list, int mode, routedata path) {

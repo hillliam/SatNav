@@ -10,6 +10,14 @@ public class SatNavEngine implements SatNavEngineInterface {
         return "b4026826";
     }
 
+    public void setnoaroad(boolean status) {
+        map.amoterway = status;
+    }
+
+    public void setnooneway(boolean status) {
+        map.nooneway = status;
+    }
+
     @Override
     public void AddVertex(int vertexid, int x, int y) {
         map.AddNode(vertexid, x, y);
@@ -27,6 +35,10 @@ public class SatNavEngine implements SatNavEngineInterface {
         return path;
     }
 
+    public edgevector getlables() {
+        return map.getedges();
+    }
+
     public String printnodes() {
         return map.printnode();
     }
@@ -34,7 +46,7 @@ public class SatNavEngine implements SatNavEngineInterface {
     public String printedges() {
         return map.printedge();
     }
-    //public String toString() {
+    //public String toString() { // affects performance
     //    return printnodes() + printedges();
     //}
 }

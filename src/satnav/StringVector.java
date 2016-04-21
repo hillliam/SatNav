@@ -3,29 +3,17 @@ package satnav;
 /* This class defines the behaviour of a standard Vector.  The items in the 
  * collection are String objects. */
 // Refer to week 3 materials
-public class MyVector {
+public class StringVector {
 
-    private int array[];
+    private String array[];
     private int itemcount;
     private int growammount;
 
     // Default Constructor
-    public MyVector() {
-        array = new int[0];
+    public StringVector() {
+        array = new String[0];
         itemcount = 0;
         growammount = 1;
-    }
-
-    /* Sets how much this vector should grow by when it needs resizing.  A sensible
-     * default growby value should be used in your implementation, but this method will
-     * override that default.  Note, you should not grow the vector here, just remember 
-     * what it will grow by when required. */
-    public void SetGrowBy(int growby) {
-        if (growby == 0) {
-            growammount = 2;
-        } else {
-            growammount = growby;
-        }
     }
 
     /* Returns the maximum capacity of the vector before it will need to resize again
@@ -45,9 +33,9 @@ public class MyVector {
 
     /* Returns the String value held at index (base zero) or null if the index
      * is out of bounds */
-    public int GetItemByIndex(int index) {
+    public String GetItemByIndex(int index) {
         if (index > itemcount || index < 0) {
-            return 0;
+            return null;
         } else {
             return array[index];
         }
@@ -57,9 +45,11 @@ public class MyVector {
      * value passed in, or -1 if no such item exists.  String matches are not case 
      * sensitive.  You will need to use linear search */
     public int FindItem(String search) {
-        for (int i = 0; i <= itemcount; i++) {
-            if (search.equals(array[i])) {
-                return i;
+        if (itemcount != 0) {
+            for (int i = 0; i < itemcount; i++) {
+                if (search.equals(array[i])) {
+                    return i;
+                }
             }
         }
         return -1;
@@ -67,9 +57,9 @@ public class MyVector {
 
     /* Adds value to the end of the Vector collection of data items.  The order that 
      * the items are added must be maintained. */
-    public void AddItem(int value) {
+    public void AddItem(String value) {
         if (itemcount == array.length) {
-            int newarray[] = new int[array.length + growammount];
+            String newarray[] = new String[array.length + growammount];
             for (int i = 0; i != itemcount; i++) {
                 newarray[i] = array[i];
             }
@@ -77,50 +67,6 @@ public class MyVector {
         }
         array[itemcount] = value;
         itemcount++;
-    }
-
-    /* Inerts value into the data structure at index (base zero) or at the end
-     * if there are less items in the data structure than index suggests */
-    public void InsertItem(int index, int value) {
-        if (itemcount > index) {
-            if (itemcount == array.length) {
-                int newarray[] = new int[array.length + growammount];
-                boolean found = false;
-                int i = 0;
-                while (i != itemcount) {
-                    if (index == i) {
-                        newarray[i] = value;
-                        found = true;
-                    }
-                    if (!found) {
-                        newarray[i] = array[i];
-                    } else {
-                        newarray[i + 1] = array[i];
-                    }
-                    i++;
-                }
-                array = newarray;
-                itemcount++;
-            } else {
-                boolean found = false;
-                int i = itemcount;
-                while (i >= 0) {
-                    if (index == i) {
-                        array[i] = value;
-                        found = true;
-                    }
-                    if (!found) {
-                        array[i] = array[i - 1];
-                    } else {
-                        break;
-                    }
-                    i--;
-                }
-                itemcount++;
-            }
-        } else {
-            AddItem(value);
-        }
     }
 
     /* Removes the item at index from the data structure - if index is out of
@@ -139,7 +85,7 @@ public class MyVector {
         }
     }
 
-    public int[] getarray() {
+    public String[] getarray() {
         return array;
     }
 
@@ -147,10 +93,14 @@ public class MyVector {
      * tested, update the following toString method to dump any information you are 
      * interested in */
     public String toString() {
-        String output = "";
-        for (int i = 0; i <= itemcount - 1; i++) {
-            output += array[i] + ", ";
+        if (itemcount != 0) {
+            String output = "";
+            for (int i = 0; i <= itemcount - 2; i++) {
+                output += array[i] + " -> ";
+            }
+            output += array[itemcount - 1];
+            return output;
         }
-        return output;
+        return null;
     }
 }

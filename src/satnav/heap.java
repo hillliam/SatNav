@@ -86,7 +86,7 @@ public class heap {
         }
     }
 
-    public int FindItem(Node c) { // to treverse properley
+    public int FindItem(Node c) { // todo: treverse properley
         int parent = 0;
         int value = c.getid();
         for (int i = 0; i != length; i++) {

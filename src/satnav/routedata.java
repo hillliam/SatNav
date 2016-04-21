@@ -11,8 +11,8 @@ public class routedata implements RouteInfoInterface {
     //private MyStack from = new MyStack(); // stack overflow on large maps
     private MyVector from = new MyVector();
     private int exploredvertex = 0;
-    private String path = "";
-    private String path_names = "";
+    private StringVector path = new StringVector();
+    private StringVector path_names = new StringVector();
 
     @Override
     public double GetDistanceInMiles() {
@@ -52,19 +52,21 @@ public class routedata implements RouteInfoInterface {
     }
 
     public void addtopath(String node) {
-        path += node;
+        if (path.FindItem(node) == -1) {
+            path.AddItem(node);
+        }
     }
 
     public void addtopathname(String node) {
-        path_names += node;
+        path_names.AddItem(node);
     }
 
     @Override
     public String GetRoute(boolean incvertices) {
         if (incvertices) {
-            return path_names;
+            return path_names.toString();
         } else {
-            return path;
+            return path.toString();
         }
     }
 
