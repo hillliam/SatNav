@@ -9,11 +9,11 @@ public class SatNav {
         // Create a new SatNavEngine
         SatNavEngine engine = new SatNavEngine();
         // Load the vertex and edge data using the AddEdge and AddVertex methods
-        LoadVertices(engine, "SheffieldCentre - ADS2SatNavData-Vertices.dat");
-        LoadEdges(engine, "SheffieldCentre - ADS2SatNavData-Edges.dat");
+        //LoadVertices(engine, "SheffieldCentre - ADS2SatNavData-Vertices.dat");
+        //LoadEdges(engine, "SheffieldCentre - ADS2SatNavData-Edges.dat");
         // bigger
-        //LoadVertices(engine, "Sheffield - ADS2SatNavData-Vertices.dat");
-        //LoadEdges(engine, "Sheffield - ADS2SatNavData-Edges.dat");
+        LoadVertices(engine, "Sheffield - ADS2SatNavData-Vertices.dat");
+        LoadEdges(engine, "Sheffield - ADS2SatNavData-Edges.dat");
         // bigest
         //LoadVertices(engine, "LeedsSheffieldManchester - ADS2SatNavData-Vertices.dat");
         //LoadEdges(engine, "LeedsSheffieldManchester - ADS2SatNavData-Edges.dat");

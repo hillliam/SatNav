@@ -12,7 +12,7 @@ package satnav;
 public class display extends javax.swing.JDialog {
 
     private SatNavEngine map = new SatNavEngine();
-    
+    private MyStack path = new MyStack();
     /**
      * Creates new form display
      */
@@ -222,21 +222,29 @@ public class display extends javax.swing.JDialog {
         else if (a == 1)
         {
             SatNav.LoadVertices(map, "Sheffield - ADS2SatNavData-Vertices.dat");
-        SatNav.LoadEdges(map, "Sheffield - ADS2SatNavData-Edges.dat");
+            SatNav.LoadEdges(map, "Sheffield - ADS2SatNavData-Edges.dat");
         }
         else if (a == 2)
         {
             SatNav.LoadVertices(map, "LeedsSheffieldManchester - ADS2SatNavData-Vertices.dat");
-        SatNav.LoadEdges(map, "LeedsSheffieldManchester - ADS2SatNavData-Edges.dat");
+            SatNav.LoadEdges(map, "LeedsSheffieldManchester - ADS2SatNavData-Edges.dat");
         }
         // populate start1 start2 end1 end2
         edgevector data = map.getlables();
         for (int i=0; i!= data.getitems(); i++)
         {
-            this.end1.addItem(data.get(i).getLabel());
-            this.end2.addItem(data.get(i).getLabel());
-            this.start1.addItem(data.get(i).getLabel());
-            this.start2.addItem(data.get(i).getLabel());
+            if (!path.find(data.get(i).getLabel()))
+            {
+                path.Push(data.get(i).getLabel());
+            }
+        }
+        while (!path.IsEmpty())
+        {
+            String output = path.Pop();
+            this.end1.addItem(output);
+            this.end2.addItem(output);
+            this.start1.addItem(output);
+            this.start2.addItem(output);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

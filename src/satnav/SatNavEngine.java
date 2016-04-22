@@ -46,7 +46,7 @@ public class SatNavEngine implements SatNavEngineInterface {
     public String printedges() {
         return map.printedge();
     }
-    //public String toString() { // affects performance
-    //    return printnodes() + printedges();
-    //}
+    public String toString() { // affects performance
+        return printnodes() + printedges();
+    }
 }

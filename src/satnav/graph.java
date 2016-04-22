@@ -79,6 +79,7 @@ public class graph {
                 break;
             }
             //int b = 0;
+            path.incromentvertexcount();
             check(path, current, endn, mode);
         }
         addup(path, current, startn, endn);
@@ -94,7 +95,6 @@ public class graph {
 
     private void check(routedata path, Node current, Node endn, int mode) {
         for (int i = 0; i != edges.getitems(); i++) {
-            path.incromentvertexcount();
             if (edges.get(i).isMultiway()) {
                 if (current.getid() == edges.get(i).getId1()) {
                     Node c = findnode(edges.get(i).getId2());
